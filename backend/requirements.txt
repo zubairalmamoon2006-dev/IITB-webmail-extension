@@ -1,0 +1,7 @@
+Django==6.0.1
+django-cors-headers
+gunicorn
+requests
+# PDF attachments are converted to Markdown on the server (Summarize / Reply).
+pymupdf>=1.24.0
+pymupdf4llm>=0.0.17

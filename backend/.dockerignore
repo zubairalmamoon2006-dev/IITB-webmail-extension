@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+db.sqlite3
+.venv/
+venv/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+staticfiles/
+
+.git
+.gitignore

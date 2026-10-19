@@ -1,0 +1,269 @@
+{
+  "_about": "Shared test set for the sensitive-mail filter. Used by backend/api/tests.py and tests/sensitive.test.js so the Python and JS rules stay identical. expect=hidden means the whole mail is replaced by a stub; expect=visible means it must pass through, with every must_keep string still present and every must_remove string gone.",
+  "samples": [
+    {
+      "name": "ASC login OTP",
+      "sender_name": "ASC IITB",
+      "sender_email": "asc-noreply@iitb.ac.in",
+      "subject": "OTP for ASC login",
+      "body": "Dear student, your OTP for ASC login is 482913. It is valid for 10 minutes. Do not share it with anyone.",
+      "expect": "hidden"
+    },
+    {
+      "name": "Google verification code in subject",
+      "sender_name": "Google",
+      "sender_email": "no-reply@accounts.google.com",
+      "subject": "123456 is your Google verification code",
+      "body": "Use this code to finish signing in. If you didn't request it, ignore this mail.",
+      "expect": "hidden"
+    },
+    {
+      "name": "Microsoft security code",
+      "sender_name": "Microsoft account team",
+      "sender_email": "account-security-noreply@accountprotection.microsoft.com",
+      "subject": "Microsoft account security code",
+      "body": "Please use the following security code for the Microsoft account ra***@iitb.ac.in. Security code: 8823",
+      "expect": "hidden"
+    },
+    {
+      "name": "Password reset link with token",
+      "sender_name": "Example Portal",
+      "sender_email": "support@portal.example.com",
+      "subject": "Password reset request",
+      "body": "We received a request to reset your password. Click https://portal.example.com/reset?token=Zx81kPq0aLm29QwErTy to choose a new one.",
+      "expect": "hidden"
+    },
+    {
+      "name": "Bank debit alert",
+      "sender_name": "HDFC Bank InstaAlerts",
+      "sender_email": "alerts@hdfcbank.net",
+      "subject": "View: Account update for your HDFC Bank A/c",
+      "body": "Dear Customer, Rs.500.00 has been debited from account **4421 to VPA canteen@okaxis on 14-10-26. Your UPI transaction reference number is 428812341234.",
+      "expect": "hidden"
+    },
+    {
+      "name": "One time passcode",
+      "sender_name": "Moodle",
+      "sender_email": "noreply@moodle.iitb.ac.in",
+      "subject": "Your sign in request",
+      "body": "Your one time passcode: 773122",
+      "expect": "hidden"
+    },
+    {
+      "name": "Hyphenated sign-in code",
+      "sender_name": "Slack",
+      "sender_email": "no-reply@slack.com",
+      "subject": "Slack confirmation code",
+      "body": "Your confirmation code is below. Enter it in your open browser window. 459-321",
+      "expect": "hidden"
+    },
+    {
+      "name": "Two-factor code",
+      "sender_name": "SSO",
+      "sender_email": "sso@iitb.ac.in",
+      "subject": "Login attempt",
+      "body": "Your two-factor authentication code: 950117. It expires in 5 minutes.",
+      "expect": "hidden"
+    },
+    {
+      "name": "Apple ID code",
+      "sender_name": "Apple",
+      "sender_email": "noreply@email.apple.com",
+      "subject": "Your Apple ID Code",
+      "body": "Your Apple ID Code is: 552901. Don't share it with anyone.",
+      "expect": "hidden"
+    },
+    {
+      "name": "Magic sign-in link",
+      "sender_name": "Notion",
+      "sender_email": "notify@mail.notion.so",
+      "subject": "Your login link",
+      "body": "Click the magic link below to sign in: https://www.notion.so/loginwithemail?state=a8f9e0c1d2b3a4f5e6d7c8b9a0f1e2d3",
+      "expect": "hidden"
+    },
+    {
+      "name": "Quiz notice",
+      "sender_name": "Prof Sharma",
+      "sender_email": "sharma@iitb.ac.in",
+      "subject": "MM 305 Quiz 2 on Friday",
+      "body": "Dear students, Quiz 2 will be held on 17 Oct 2026 at 8:30 AM in LH 101. Syllabus: lectures 8-14. Roll numbers 24B1001 to 24B1080 in LH 101, rest in LH 102.",
+      "expect": "visible",
+      "must_keep": [
+        "17 Oct 2026",
+        "8:30 AM",
+        "LH 101",
+        "24B1001"
+      ]
+    },
+    {
+      "name": "Document verification (not a code)",
+      "sender_name": "Scholarship Cell",
+      "sender_email": "scholarship@iitb.ac.in",
+      "subject": "Verification of documents on 20 Oct",
+      "body": "Verification of documents for the merit scholarship will happen on 20 Oct 2026 in the Main Building, Room 1012. Contact 2576 7001 for queries.",
+      "expect": "visible",
+      "must_keep": [
+        "Room 1012",
+        "2576 7001",
+        "20 Oct 2026"
+      ]
+    },
+    {
+      "name": "Moodle password reminder without link token",
+      "sender_name": "CC Office",
+      "sender_email": "office@cc.iitb.ac.in",
+      "subject": "Reset your Moodle password before the quiz",
+      "body": "Students who have not logged in this semester should reset your password using the Forgot Password option at https://moodle.iitb.ac.in before 18 Oct.",
+      "expect": "visible",
+      "must_keep": [
+        "https://moodle.iitb.ac.in",
+        "18 Oct"
+      ]
+    },
+    {
+      "name": "Placement talk",
+      "sender_name": "Placement Cell",
+      "sender_email": "placement@iitb.ac.in",
+      "subject": "Pre-placement talk: Goldman Sachs",
+      "body": "PPT for the Batch of 2027 on 16 Oct at 6 PM in VMCC. 1234 students registered so far. Contact: 022 2576 4022.",
+      "expect": "visible",
+      "must_keep": [
+        "2027",
+        "1234 students",
+        "022 2576 4022"
+      ]
+    },
+    {
+      "name": "LDAP password expiry notice",
+      "sender_name": "Computer Centre",
+      "sender_email": "helpdesk@cc.iitb.ac.in",
+      "subject": "Your LDAP password will expire in 7 days",
+      "body": "Your LDAP password will expire in 7 days. Change it at https://www.cc.iitb.ac.in/passwordchange.",
+      "expect": "visible",
+      "must_keep": [
+        "7 days",
+        "https://www.cc.iitb.ac.in/passwordchange"
+      ]
+    },
+    {
+      "name": "Hostel fee with institute account number",
+      "sender_name": "Hostel Office",
+      "sender_email": "hostel7@iitb.ac.in",
+      "subject": "Hostel fee due 25 Oct",
+      "body": "Pay the hostel fee of Rs 12500 by 25 Oct. Account number for NEFT: 10987654321, IFSC SBIN0000666.",
+      "expect": "visible",
+      "must_keep": [
+        "Rs 12500",
+        "10987654321",
+        "SBIN0000666",
+        "25 Oct"
+      ]
+    },
+    {
+      "name": "Zoom class invite with passcode",
+      "sender_name": "Prof Rao",
+      "sender_email": "rao@ee.iitb.ac.in",
+      "subject": "EE 229 extra class on Zoom",
+      "body": "Join Zoom Meeting https://iitb.zoom.us/j/84522319087 Meeting ID: 845 2231 9087 Passcode: 551234. Class at 5 PM on 15 Oct.",
+      "expect": "visible",
+      "must_keep": [
+        "845 2231 9087",
+        "551234",
+        "5 PM"
+      ]
+    },
+    {
+      "name": "Mentions OTP but has no code, with pincode footer",
+      "sender_name": "Gymkhana",
+      "sender_email": "gymkhana@iitb.ac.in",
+      "subject": "Gym entry from Monday",
+      "body": "From Monday you will receive an OTP on your registered mobile at the gate. Regards, Gymkhana, IIT Bombay, Powai, Mumbai 400076.",
+      "expect": "visible",
+      "must_keep": [
+        "400076",
+        "Monday"
+      ]
+    },
+    {
+      "name": "Registration code and roll numbers",
+      "sender_name": "Techfest",
+      "sender_email": "team@techfest.org",
+      "subject": "Techfest registration confirmed",
+      "body": "Your team registration code is TF26-ALPHA. Team ID 2041. Event on 18 Dec 2026.",
+      "expect": "visible",
+      "must_keep": [
+        "TF26-ALPHA",
+        "2041",
+        "18 Dec 2026"
+      ]
+    },
+    {
+      "name": "Year near the word code",
+      "sender_name": "Academic Office",
+      "sender_email": "acad@iitb.ac.in",
+      "subject": "Course code changes for Spring 2027",
+      "body": "The course code for Data Structures changes from CS 213 to CS 2130 in January 2027.",
+      "expect": "visible",
+      "must_keep": [
+        "CS 2130",
+        "January 2027"
+      ]
+    },
+    {
+      "name": "Shared password and card number inside a normal mail",
+      "sender_name": "Club Secretary",
+      "sender_email": "club@iitb.ac.in",
+      "subject": "Club laptop details",
+      "body": "The club laptop login is ugac-club and password: Tr1cky#2026. Please do not pay with card 4111 1111 1111 1111 this time. Meeting on 19 Oct.",
+      "expect": "visible",
+      "must_keep": [
+        "ugac-club",
+        "19 Oct"
+      ],
+      "must_remove": [
+        "Tr1cky#2026",
+        "4111 1111 1111 1111"
+      ]
+    },
+    {
+      "name": "Aadhaar number in a form reminder",
+      "sender_name": "Scholarship Cell",
+      "sender_email": "scholarship@iitb.ac.in",
+      "subject": "Form correction needed",
+      "body": "Your form shows Aadhaar 2345 6789 0123 which does not match. Please correct it by 22 Oct. Phone +91 98765 43210.",
+      "expect": "visible",
+      "must_keep": [
+        "22 Oct",
+        "98765 43210"
+      ],
+      "must_remove": [
+        "2345 6789 0123"
+      ]
+    },
+    {
+      "name": "Do not share the form, deadline 2359 hrs",
+      "sender_name": "Dept Office",
+      "sender_email": "office@me.iitb.ac.in",
+      "subject": "Elective preference form",
+      "body": "Please do not share this form outside the department. Fill it before 2359 hrs on 21 Oct.",
+      "expect": "visible",
+      "must_keep": [
+        "2359 hrs",
+        "21 Oct"
+      ]
+    },
+    {
+      "name": "OTP based attendance with a head count",
+      "sender_name": "Academic Office",
+      "sender_email": "acad@iitb.ac.in",
+      "subject": "OTP based attendance from 20 Oct",
+      "body": "OTP based attendance starts on 20 Oct for all 1500 students of the first year. Fee Rs 2500 for lost ID cards.",
+      "expect": "visible",
+      "must_keep": [
+        "1500 students",
+        "Rs 2500",
+        "20 Oct"
+      ]
+    }
+  ]
+}

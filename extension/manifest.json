@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Mail IITB",
+  "version": "3.6",
+  "icons": {
+    "16": "Icons/icon_16.png",
+    "32": "Icons/icon_32.png",
+    "48": "Icons/icon_48.png",
+    "128": "Icons/icon_128.png"
+  },
+  "action": {
+    "default_title": "open IITB Mail Assistant",
+    "default_icon": {
+      "16": "Icons/icon_16.png",
+      "32": "Icons/icon_32.png"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting",
+    "storage",
+    "identity",
+    "sidePanel",
+    "notifications",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "*://webmail.iitb.ac.in/*",
+    "*://*.iitb.ac.in/*",
+    "https://www.googleapis.com/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*",
+    "https://webmailextensionugac-260151192882.asia-south1.run.app/api/daily-summary/",
+    "https://webmailextensionugac-260151192882.asia-south1.run.app/api/gemini-proxy/",
+    "https://webmailextensionugac-260151192882.asia-south1.run.app/api/mail-window/",
+    "https://webmailextensionugac-260151192882.asia-south1.run.app/api/extract-pdf/"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAouR3GrJbUBeg1/6Fx5rGD6vWboL0M+ts8fT0B+2r39+QZ9hpOK3FR4MFMQan9uLa2UOYxmTcH+eAogQ19leabjnueZEHQg6lkOxxBp5K67plR1TPnTiJHAwnpHjR2HjupuOeAXnSM6sbwSGRv93H87a0YcafQerb+juDymQw/Iva3fk6WGrQKLu7LjQScI98XPdZwo/oIPWFLVn/VWK1KdzJ+2RswYtcYFewenqlX+y8ODWuDt5CZa+R/IV5GjY6dQvP9esxymeiqXObNgtzUtGLAMbvCLGZrwpHI4+TlVVwmUo6aAlZAOd6TjVO61mIinFDAH/Jg8pKvd0HwS5Y9wIDAQAB",
+  "oauth2": {
+    "client_id": "204923188074-lev69m2gnnock5k9btjvqmle7pono50r.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar",
+      "https://www.googleapis.com/auth/calendar.events"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://webmail.iitb.ac.in/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "*://webmail.iitb.ac.in/*"
+      ],
+      "js": [
+        "chat-fab.js"
+      ],
+      "all_frames": false,
+      "run_at": "document_idle"
+    }
+  ]
+
+}
